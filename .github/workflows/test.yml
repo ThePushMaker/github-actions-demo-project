@@ -1,0 +1,17 @@
+name: Test Project #le damos un nombre al workflow
+on: #trigger, cuando se dispara el workflow
+  pull_request: 
+    branches: 
+      - main #solo se dispara cuando se hace un pull request en la rama main
+jobs: #tareas a realizar
+  test: #nombre de la tarea
+    runs-on: ubuntu-latest #sistema operativo a utilizar
+    container:
+      image: node:20 #imagen a utilizar
+    steps: #pasos a realizar
+      - uses: actions/checkout@v3 #descarga el repositorio
+        with:
+          node-version: 20 #version de node a utilizar
+      - run: npm ci #instalamos las dependencias
+      - run: npm test #ejecutamos las pruebas
+      - run: npm run build #compilamos el proyecto
